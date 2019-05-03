@@ -1,0 +1,282 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{sectsty}
+
+\sectionfont{\usefont{OT1}{phv}{b}{n} \sectionrule{0pt}{0pt}{-5pt}{3pt}}
+\author{Songtuan Lin u6162630}
+\title{Assignment 4}
+\begin{document}
+\maketitle
+
+\section*{Question 1}
+\subsection*{(a)}
+According to the definition of conjugate function: $f^{*}(\mathbf{y}) = \displaystyle\sup_{\mathbf{x}}\{ \mathbf{x}^{T} \mathbf{y} - f(\mathbf{x}) \}$, for any $\mathbf{y}$ and $\mathbf{x} \in \mathcal{D}$, we have:
+\begin{equation*}
+	\begin{aligned}
+		f^{*}(\mathbf{y}) &= \displaystyle\sup_{\mathbf{x}}\{ \mathbf{x}^{T} \mathbf{y} - f(\mathbf{x}) \} \\
+		&\geq \mathbf{x}^{T} \mathbf{y} - f(\mathbf{x})
+	\end{aligned} 
+\end{equation*}
+By moving the term $f(\mathbf{x})$ within above equation from right-hand side to left-hand side, we can verify that:
+\begin{equation*}
+	f^{*}(\mathbf{y}) + f(\mathbf{x}) \geq \mathbf{x}^{T} \mathbf{y}
+\end{equation*}
+
+\subsection*{(b)}
+By substituting $\mathbf{y} = \mathbf{0}$ to $f^{*}(\mathbf{y})$, we have:
+\begin{equation*}
+	\begin{aligned}
+		f^{*}(0) &= \displaystyle\sup_{\mathbf{x}} \{ -f(\mathbf{x}) \} \\
+	\end{aligned}
+\end{equation*}
+We can multiple both side of above equation with $-1$, then, we get:
+\begin{equation*}
+	\begin{aligned}
+		-f^{*}(0) &= - \displaystyle\sup_{\mathbf{x}} \{ -f(\mathbf{x}) \} \\
+		&= \displaystyle\inf_{\mathbf{x}} \{ f(\mathbf{x}) \}
+	\end{aligned}
+\end{equation*}
+
+\subsection*{(c)}
+We can write the conjugate function of $f(\mathbf{x})$ as:
+\begin{equation*}
+	f^{*}(\mathbf{y}) = \displaystyle\sup_{\mathbf{x}} \{ \displaystyle\sum_{i = 1}^{n}(x_{i}y_{i} - \alpha_{i}\log{x_{i}}) \}
+\end{equation*}
+Suppose there exist a $\alpha_{i} \geq 0$, then, for any $y_{i}$, the term $x_{i} y_{i} - \alpha_{1} \log{x_{i}}$ can always reach infinity, \textit{i.e.} for any $y_{i}$, $(x_{i} y_{i} - \alpha_{1} \log{x_{i}}) \rightarrow \infty$ when $x_{i} \rightarrow 0$. Hence, we can always choose a $\mathbf{x}$ with $x_{i} \rightarrow 0$ and make $(x_{i} y_{i} - \alpha_{1} \log{x_{i}}) \rightarrow \infty$, which means, $f^{*}(\mathbf{y}) < \infty$ if $\alpha_{i} < 0$ for each $i$.
+
+Now we can start to discuss the domain of $f^{*}$ under the situation $\alpha \prec 0$: Indeed, if there exist a $y_{i} > 0$, then, the term $x_{i} y_{i} - \alpha_{1} \log{x_{i}}$ will goes to infinity when $x_{i} \rightarrow \infty$. This is because $x_{i} y_{i} \rightarrow \infty$ along with $x_{i} \rightarrow \infty$ and $-\alpha_{i}\log{x_{i}}$ always greater than zero. Based on this observation, we can conclude the domain of $f^{*}$ is $\mathbf{y} \prec 0$.
+
+Finally, we can start to find the conjugate function. We first notice that when $y_{i} < 0$ and $\alpha_{i} > 0$, the term $x_{i} y_{i} - \alpha_{1} \log{x_{i}}$ is a concave function over $x_{i}$. As a result, the function $g(\mathbf{x}) = \displaystyle\sum_{i = 1}^{n}(x_{i}y_{i} - \alpha_{i}\log{x_{i}})$ is also concave as it is a non-negative sum of concave functions, which means, $g(\mathbf{x})$ will reach the maximum at the point $\mathbf{x^{*}}$ that satisfied:
+\begin{equation*}
+	\nabla_{\mathbf{x}} g(\mathbf{x^{*}}) = 0
+\end{equation*}
+The above equation is equivalent to:
+\begin{equation}
+	y_{i} - \alpha_{i} \frac{1}{x_{i}} = 0 \quad i = 1, 2, \cdots, n
+	\label{conjugate}
+\end{equation}
+Solving Equation \ref{conjugate}, we get:
+\begin{equation*}
+	x_{i} = \frac{\alpha_{i}}{y_{i}}
+\end{equation*}
+Therefore, the conjugate function is:
+\begin{equation*}
+	\begin{aligned}
+		f^{*}(\mathbf{y}) &= \displaystyle\sup_{\mathbf{x}}(g(\mathbf{x})) \\
+		&= \displaystyle\sum_{i = 1}^{n}(\alpha_{i} - \alpha_{i} \log{\frac{\alpha_{i}}{y_{i}}})
+	\end{aligned}
+\end{equation*}
+
+\section*{Question 2}
+\subsection*{(a)}
+The original problem can be expressed as:
+\begin{equation*}
+	\displaystyle\min_{x} \quad \displaystyle\sum_{i = 1}^{n} |x - b_{i}|
+\end{equation*}
+with the objective function $f(x) = \displaystyle\sum_{i = 1}^{n} |x - b_{i}|$ and domain $x \in \mathcal{R}$. Indeed, we can reorder the terms within $f(x)$ as:
+\begin{equation*}
+	f(x) = |x - b^{*}_{1}| + |x - b^{*}_{2}| + \cdots + |x - b^{*}_{n}|
+\end{equation*}
+Where $b^{*}_{1}, b^{*}_{2} \cdots b^{*}_{n}$ is a reordered sequence generated from $b_{1}, b_{2} \cdots b_{n}$ and satisfied $b^{*}_{i} \leq b^{*}_{j}$ if $i < j$. By observing $f(x)$, we noticed that when $x$ satisfied $b^{*}_{i} \leq x < b^{*}_{i + 1}$, there is:
+\begin{equation*}
+	\begin{aligned}
+		f(x) &= (x - b^{*}_{1}) + (x - b^{*}_{2}) + \cdots + (x - b^{*}_{i}) + (b^{*}_{i + 1} - x) + (b^{*}_{i + 2} - x) + \cdots + (b^{*}_{n} - x) \\
+		&= (2i - n)x + (b^{*}_{i + 1} + b^{*}_{i + 2} + \cdots + b^{*}_{n}) - (b^{*}_{1} + b^{*}_{2} + \cdots +b^{*}_{i}) \\
+		&= (2i - n)x + \sigma
+	\end{aligned}
+\end{equation*}
+Where we have defined $\sigma = (b^{*}_{i + 1} + b^{*}_{i + 2} + \cdots + b^{*}_{n}) - (b^{*}_{1} + b^{*}_{2} + \cdots +b^{*}_{i})$. By observing $f(x)$, we first notice that when $i \leq \frac{n}{2}$, $f(x)$ is always a non-increasing function and when $i > \frac{n}{2}$, $f(x)$ is always non-decreasing. Additionally, $i$ is the index and hence, it must be an integer. Therefore, we can conclude that: 
+\begin{enumerate}
+	\item $f(x)$ is non-increasing when $i \leq \lfloor \frac{n}{2} \rfloor$.
+	\item $f(x)$ is non-decreasing when $i \geq \lceil \frac{n}{2} \rceil$.
+\end{enumerate}
+Furthermore, since $i \leq \lfloor \frac{n}{2} \rfloor$ corresponding to the interval $x  < b^{*}_{\lfloor \frac{n}{2} \rfloor + 1} = b^{*}_{\lceil \frac{n}{2} \rceil}$ and $i \geq \lceil \frac{n}{2} \rceil$ corresponding to the interval $x \geq b^{*}_{\lceil \frac{n}{2} \rceil}$, we can conclude that $f(x)$ is non-increasing when $x < b^{*}_{\lceil \frac{n}{2} \rceil}$ and is non-decreasing when $x \geq b^{*}_{\lceil \frac{n}{2} \rceil}$. As a result, $f(x)$ reach the minimum at the optimal point $x = b^{*}_{\lceil \frac{n}{2} \rceil}$.
+
+\subsection*{(b)}
+We first notice that the function $\| x \mathbf{1} - \mathbf{b} \|_{2}$ have the same optimal point as $\| x \mathbf{1} - \mathbf{b} \|_{2}^{2}$, which means, they both reach the minimum at the same point $x$. Therefore, we can find this optimal point by solving the optimal problem:
+\begin{equation*}
+	\begin{aligned}
+		\displaystyle\min_{x} & \quad \| x \mathbf{1} - \mathbf{b} \|_{2}^{2}
+	\end{aligned}
+\end{equation*}
+Which is the same as:
+\begin{equation*}
+	\displaystyle\min_{x} \quad \displaystyle\sum_{i = 1}^{n} (x - b_{i})^{2}
+\end{equation*}
+It is easy to verify that the function $f(x) = \displaystyle\sum_{i = 1}^{n} (x - b_{i})^{2}$ is convex by checking $\nabla^{2}_{x} f(x) = 2n > 0$. Therefore, according to the first-order condition, $f(x)$ will reach the minimum at the optimal $x^{*}$ which satisfied:
+\begin{equation*}
+	\begin{aligned}
+		\nabla_{x}f(x^{*}) &= \displaystyle\sum_{i = 1}^{n}2(x^{*} - b_{i}) \\
+		&= 0
+	\end{aligned}
+\end{equation*}
+The solution of this equation is:
+\begin{equation*}
+	x^{*} = \frac{1}{n} \displaystyle\sum_{i = 1}^{n} b_{i}
+\end{equation*}
+Hence, the optimal point for the original problem is also $x^{*} = \frac{1}{n} \displaystyle\sum_{i = 1}^{n} b_{i}$.
+
+\subsection*{(c)}
+By using the similar method as in (a), we can reorder the elements within $\mathbf{b}$ and reform the problem as:
+\begin{equation*}
+	\begin{aligned}
+		\displaystyle\min_{x} & \quad \displaystyle\max_{i} \{ |x - b^{*}_{1}|, |x - b^{*}_{2}|, \cdots, |x - b^{*}_{n}| \}
+	\end{aligned}
+\end{equation*}
+We first check the situation that $x \leq b^{*}_{1}$, we have:
+\begin{equation*}
+	\begin{aligned}
+		\| x \mathbf{1} - \mathbf{b} \|_{\infty} &= \displaystyle\max \{ b^{*}_{1} - x, b^{*}_{2} - x, \cdots, b^{*}_{n} - x \} \\
+		&= b^{*}_{n} - x \\
+		&\geq b^{*}_{n} - b^{*}_{1}
+	\end{aligned}
+\end{equation*}
+It can be seen that under this situation, $\| x \mathbf{1} - \mathbf{b} \|_{\infty}$ reach the minimum $b^{*}_{n} - b^{*}_{1}$ when $x = b^{*}_{1}$.  After that, we can check the situation that $b^{*}_{1} \leq x \leq b^{*}_{i}$, we have:
+\begin{equation*}
+	\begin{aligned}
+		\| x \mathbf{1} - \mathbf{b} \|_{\infty} &= \displaystyle\max\{ x - b^{*}_{1}, x - b^{*}_{2}, \cdots, x - b^{*}_{i - 1}, b^{*}_{i} - x, b^{*}_{i + 1} - x, \cdots, b^{*}_{n} - x \} \\
+		&= \displaystyle\max \{ x - b^{*}_{1}, b^{*}_{n} - x \}
+	\end{aligned}
+\end{equation*}
+We first notice that the above equation hold for any $b^{*}_{i}$, hence, we can expand this equation to the condition that $b^{*}_{1} \leq x \leq b^{*}_{n}$:
+\begin{equation*}
+	\| x \mathbf{1} - \mathbf{b} \|_{\infty} = \displaystyle\max \{ x - b^{*}_{1}, b^{*}_{n} - x \}
+\end{equation*}
+Furthermore, we realize that when $x > \frac{b^{*}_{1} + b^{*}_{n}}{2}$, $x - b^{*}_{1} > b^{*}_{n} - x$ and when $x \leq \frac{b^{*}_{1} + b^{*}_{n}}{2}$, $x - b^{*}_{1} \leq b^{*}_{n} - x$. Therefore, we have:
+\begin{equation*}
+	\| x \mathbf{1} - \mathbf{b} \|_{\infty} = 
+	\begin{cases}
+		b^{*}_{n} - x & \quad x \leq \frac{b^{*}_{1} + b^{*}_{n}}{2} \\
+		x - b^{*}_{1} & \quad x > \frac{b^{*}_{1} + b^{*}_{n}}{2}
+	\end{cases}
+\end{equation*}
+Hence, $\| x \mathbf{1} - \mathbf{b} \|_{\infty}$ reach the minimum value $\frac{b^{*}_{n} - b^{*}_{1}}{2}$ at $x = \frac{b^{*}_{n} + b^{*}_{1}}{2}$. Finally, we can check the situation that $x \geq b^{*}_{n}$. Under this situation, $\| x \mathbf{1} - \mathbf{b} \|_{\infty}$ has the minimum $b^{*}_{n} - b^{*}_{1}$. Since $\frac{b^{*}_{n} - b^{*}_{1}}{2} < b^{*}_{n} - b^{*}_{1}$, we can then conclude that for any $x \in \mathcal{R}$, the optimal point for function $\| x \mathbf{1} - \mathbf{b} \|_{\infty}$ is: 
+\begin{equation*}
+	x = \frac{b^{*}_{n} + b^{*}_{1}}{2}
+\end{equation*}
+with the optimal value $\frac{b^{*}_{n} - b^{*}_{1}}{2}$.
+
+\subsection*{(d)}
+As the similar method been used in (b), we can first find the optimal point for the optimal problem:
+\begin{equation*}
+	\displaystyle\min_{x} \quad \| x \mathbf{a} - \mathbf{b} \|^{2}_{2}
+\end{equation*}
+Which is equivalent to the problem:
+\begin{equation*}
+	\displaystyle\min_{x} \quad \displaystyle\sum_{i} (a_{i}x - b_{i})^{2}
+\end{equation*}
+It is easy to verify that the function $f(x) = \displaystyle\sum_{i} (a_{i}x - b_{i})^{2}$ is convex as $\nabla_{x}^{2} f(x) = \displaystyle\sum_{i}2 a_{i}^{2} > 0$. Therefore, the optimal point $x^{*}$ must satisfied the first-order condition:
+\begin{equation*}
+	\begin{aligned}
+		\nabla_{x} f(x^{*}) &= \displaystyle\sum_{i} 2a_{i}(a_{i}x - b_{i}) \\
+		&= 0
+	\end{aligned}
+\end{equation*}
+The solution of this equation is:
+\begin{equation*}
+	x^{*} = \frac{\displaystyle\sum_{i}a_{i} b_{i}}{\displaystyle\sum_{i} a_{i}^{2}}
+\end{equation*}
+Which means, the optimal point of the original problem is $x^{*} = \frac{\displaystyle\sum_{i}a_{i} b_{i}}{\displaystyle\sum_{i} a_{i}^{2}}$.
+
+\section*{Q3}
+\subsection*{(a)}
+We can first the Lagrangian as:
+\begin{equation*}
+	\begin{aligned}
+		\mathcal{L}(\mathbf{x}, \mathbf{r}) &= \displaystyle\sum_{i} \phi(r_{i}) - \nu^{T}(\mathbf{r} - \mathcal{A}\mathbf{x} + \mathbf{b}) \\
+		&= \displaystyle\sum_{i} \phi(r_{i}) - \nu^{T} \mathbf{r} + \nu^{T} \mathcal{A} \mathbf{x} - \nu^{T} \mathbf{b}
+	\end{aligned}
+\end{equation*}
+According to the Lagrangian, we can further write the Lagrange Dual Function as:
+\begin{equation*}
+	\begin{aligned}
+		g(\nu) = \displaystyle\inf_{\mathbf{r}, \mathbf{x}} \{ \displaystyle\sum_{i} \phi(r_{i}) - \nu^{T} \mathbf{r} + \nu^{T} \mathcal{A} \mathbf{x} - \nu^{T} \mathbf{b} \}
+	\end{aligned}
+\end{equation*}
+By inspecting the Lagrange Dual Function, we can find that if $\nu^{T} \mathcal{A} \neq 0$, $g(\nu)$ can easily approach to $-\infty$ as $\mathbf{x} \rightarrow \infty$ or $-\infty$. Therefore, the first condition that $\nu$ need to satisfied is:
+\begin{equation}
+	\nu^{t} \mathcal{A} = 0
+\end{equation}
+Therefore, the Lagrange Dual Function can be simplified as:
+\begin{equation*}
+	\begin{aligned}
+		g(\nu) &= \displaystyle\inf_{\mathbf{r}} \{ \displaystyle\sum_{i} \phi(r_{i}) - \nu^{T} \mathbf{r} - \nu^{T} \mathbf{b} \} \\
+		&= \displaystyle\inf_{\mathbf{r}} \{ \displaystyle\sum_{i} \phi(r_{i}) - \nu^{T} \mathbf{r} \} - \nu^{T} \mathbf{b} \\
+		&= \displaystyle\inf_{\mathbf{r}} \{ \displaystyle\sum_{i} (\phi(r_{i}) - v_{i} r_{i}) \} - \nu^{T} \mathbf{b}
+	\end{aligned}
+\end{equation*}
+As a result, the first thing we need to do to construct the Dual Problem is to solve $\displaystyle\inf_{\mathbf{r}} \{ \displaystyle\sum_{i} (\phi(r_{i}) - v_{i} r_{i}) \}$. In order to do so, we first notice that the element $r_{i}$ within $\mathbf{r}$ is independent with each other, therefore, we can first find the minimum of each single term: $\phi(r_{i}) - v_{i} r_{i}$ and then sum them together. Indeed, we can discuss the minimum of $\phi(r_{i}) - v_{i} r_{i}$ based on the following three cases:
+\begin{enumerate}
+	\item $r_{i} \leq -1$: Under this condition, the term $\phi(r_{i}) - v_{i} r_{i}$ become:
+	\begin{equation*}
+		\begin{aligned}
+			\phi(r_{i}) - v_{i} r_{i} &= -r_{1} - 1 - \nu_{i} r_{i} \\
+			&= (-\nu_{i} - 1) r_{i} - 1
+		\end{aligned}
+	\end{equation*}
+	Based on this equation, it is easy to find out that of $\nu_{i} \geq -1$, $\phi(r_{i}) - v_{i} r_{i}$ reach the minimum $\nu_{i}$ at $r_{i} = -1$. By contrast, if $\nu_{i} < -1$, $\phi(r_{i}) - v_{i} r_{i} \rightarrow -\infty$ as $r_{i} \rightarrow -\infty$. Therefore, the second condition that $\nu$ must satisfied is: For each $\nu_{i}$:
+	\begin{equation}
+		\nu_{i} \geq -1
+	\end{equation}
+	\item $r_{i} \geq 1$: Under this condition, the term $\phi(r_{i}) - v_{i} r_{i}$ become:
+	\begin{equation*}
+		\phi(r_{i}) - v_{i} r_{i} = (1 - \nu_{i}) r_{i} - 1
+	\end{equation*}
+	By inspecting this equation, if $\nu_{i} \leq 1$, $\phi(r_{i}) - v_{i} r_{i}$ has the minimum $-\nu_{i}$ at the point $r_{i} = 1$. By contrast, if $\nu_{i} > 1$, $\phi(r_{i}) - v_{i} r_{i}$ goes to $-\infty$ along with $r_{i} -\rightarrow \infty$. As a result, the third condition that $\nu$ must satisfied is: For each $\nu_{i}$
+	\begin{equation}
+		\nu_{i} \leq 1
+	\end{equation}
+	\item $-1 \leq r_{i} \leq 1$: Under this condition, the term $\phi(r_{i}) - v_{i} r_{i}$ become:
+	\begin{equation*}
+		\phi(r_{i}) - v_{i} r_{i} = -\nu_{i} r_{i}
+	\end{equation*}
+	Indeed, under this condition, it is straightforward to figure out the minimum of $\phi(r_{i}) - v_{i} r_{i}$ is either $\nu_{i}$ or $-\nu_{i}$ according to the sign of $\nu_{i}$.
+\end{enumerate}
+As a result, we can find the minimum of $\phi(r_{i}) - v_{i} r_{i}$ over the entire range of $r_{i}$ by combining the above three conditions:
+\begin{equation}
+	\begin{aligned}
+		\displaystyle\inf_{r_{i}}\{ \phi(r_{i}) - v_{i} r_{i} \} &= \displaystyle\min \{ -\nu_{i}, \nu_{i} \} \\
+		&= - |\nu_{i}|
+	\end{aligned}
+	\label{inf}	
+\end{equation}
+With the constrain:
+\begin{equation*}
+	-1 \leq \nu_{i} \leq 1
+\end{equation*}
+Which is equivalent to:
+\begin{equation}
+	|\nu_{i}| \leq 1
+	\label{c_1}
+\end{equation}
+and 
+\begin{equation}
+	\nu^{T} \mathcal{A} = 0
+	\label{c_2}
+\end{equation}
+As a result, the Dual Function, accoeding to Equation \ref{inf}, \ref{c_1} and \ref{c_2},  can be written as:
+\begin{equation}
+	\begin{aligned}
+		g(\nu) &= \displaystyle\sum_{i} -|\nu_{i}| - \nu^{T} \mathbf{b} \\
+		&= - \| \nu \|_{1} - \nu^{T} \mathbf{b}
+	\end{aligned}
+\end{equation}
+With the constrains: $|\nu_{i}| \leq 1$ for each $\nu_{i}$ and $\nu^{T} \mathcal{A} = 0$. Furthermore, since for each $\nu_{i}$ in $\nu$, there is $ |\nu_{1}| \leq 1$, we can rewrite this constrain as $\| \nu \|_{\infty} \leq 1$. As a result, the dual problem is:
+\begin{equation*}
+	\begin{aligned}
+		\displaystyle\max_{\nu} \quad & - \| \nu \|_{1} - \nu^{T} \mathbf{b} \\
+		\textsl{s.t.}  \quad & \| \nu \|_{\infty} \leq 1 \\
+		& \nu^{T} \mathcal{A} = 0
+	\end{aligned}
+\end{equation*}
+
+\subsection*{(b)}
+
+
+\end{document}
