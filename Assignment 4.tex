@@ -327,11 +327,34 @@ We can construct the minimum of $\phi(r_{i}) - \nu_{i} r_{i}$ over the entire ra
 with the constrain $-2 \leq \nu_{i} \leq 2$ and $\nu^{T} \mathcal{A} = 0$. Indeed, we can plot the graph for these three terms as:
 \begin{center}
 	\begin{tikzpicture}
-		\draw [->] (-3, 0) -- (3, 0) node[above]{$\nu_{i}$};
-		\draw [->] (0, -3) -- (0, 3);
-		\draw[scale=0.5,domain=-2:2,smooth,variable=\x,blue] plot ({\x},{\x + 1});
-		\draw[scale=0.5,domain=-2:2,smooth,variable=\x,green] plot ({\x},{1 - \x});
-		\draw[scale=0.5,domain=-2:2,smooth,variable=\x,red] plot ({\x},{-\frac{\x * \x}{4}});
+		\draw[->] (-2, 0) -- (2, 0) node[above] {$\nu_{i}$};
+		\draw[->] (0, -2) -- (0, 2);
+		\foreach \x in {-2,-1,0,1,2}
+   			\draw[-] (\x cm,1pt) -- (\x cm,-1pt) node[anchor=north] {\x};
+		\foreach \y in {-2,-1,0,1,2}
+    			\draw (1pt,\y cm) -- (-1pt,\y cm) node[anchor=east] {};
+		\draw[scale=1,domain=-2:2,smooth,variable=\x,blue] plot ({\x},{\x + 1});
+		\draw[scale=1,domain=-2:2,smooth,variable=\x,green] plot ({\x},{1 - \x});
+		\draw[scale=1,domain=-2:2,smooth,variable=\x,red] plot ({\x},{- \x*\x / 4});
 	\end{tikzpicture}
 \end{center}
+It can be seen that within the interval $-2 \leq \nu_{i} \leq 2$, we have $\displaystyle\min \{ \nu_{i} + 1, 1 - \nu_{i}, -\frac{\nu_{i}^{2}}{4} \} = - \frac{\nu_{i}^{2}}{4}$. As a result, we have:
+\begin{equation*}
+	\displaystyle\inf_{r_{i}}\{ \phi(r_{i}) - \nu_{i} r_{i} \} = - \frac{\nu_{i}^{2}}{4}
+\end{equation*}
+Therefore, the Dual Function is:
+\begin{equation*}
+	\begin{aligned}
+	g(\nu) &= \displaystyle\sum_{i} - \frac{\nu_{i}^{2}}{4} - \nu^{T} \mathbf{b} \\
+	&= -\frac{1}{4} \| \nu \|_{2}^{2} - \nu^{T} \mathbf{b}
+	\end{aligned}
+\end{equation*}
+Hence, the Dual Problem is:
+\begin{equation*}
+	\begin{aligned}
+		\displaystyle\max_{\nu} \quad & -\frac{1}{4} \| \nu \|_{2}^{2} - \nu^{T} \mathbf{b} \\
+		\textsl{s.t.} \quad & \| \nu \|_{\infty} \leq 2 \\
+		& \nu^{T} \mathcal{A} = 0
+	\end{aligned}
+\end{equation*}
 \end{document}
