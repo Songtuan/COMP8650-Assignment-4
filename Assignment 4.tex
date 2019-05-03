@@ -4,6 +4,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{tikz}
 \usepackage{parskip}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \usepackage{sectsty}
@@ -277,6 +278,60 @@ With the constrains: $|\nu_{i}| \leq 1$ for each $\nu_{i}$ and $\nu^{T} \mathcal
 \end{equation*}
 
 \subsection*{(b)}
-
-
+As what we did in (a), we can first construct the Lagrangian:
+\begin{equation*}
+	\displaystyle\sum_{i} \phi(r_{i}) - \nu^{T} \mathbf{r} + \nu^{T} \mathcal{A} \mathbf{x} - \nu^{T} \mathbf{b}
+\end{equation*}
+and the Lagrange Dual Function:
+\begin{equation*}
+	g(\nu) = \displaystyle\inf_{\mathbf{r}} \{ \displaystyle\sum_{i} (\phi(r_{i}) - v_{i} r_{i}) \} - \nu^{T} \mathbf{b}
+\end{equation*}
+with constrain:
+\begin{equation*}
+	\nu^{T} \mathcal{A} = 0
+\end{equation*}
+Indeed, in order to find the minimum of $\displaystyle\sum_{i} (\phi(r_{i}) - v_{i} r_{i})$, we can also start with finding the minimum of each $\phi(r_{i}) - \nu_{i} r_{i}$ and then summing them together. As in (a), we also separate the discussion into following cases:
+\begin{enumerate}
+	\item $r_{i} \leq -1$: Under this condition, the term $\phi(r_{i}) - \nu_{i} r_{i}$ becomes:
+	\begin{equation*}
+		\phi(r_{i}) - \nu_{i} r_{i} = (-2 - \nu_{i}) r_{i} - 1
+	\end{equation*}
+	By inspecting this equation, we can find out that if $\nu_{i} \geq -2$, $\phi(r_{i}) - \nu_{i} r_{i}$ reach the minimum $\nu_{i} + 1$ at point $r_{i} = -1$. By contrast, if $\nu_{i} < -2$, $\phi(r_{i}) - \nu_{i} r_{i}$ will goes to $-\infty$ along with $r_{i} \rightarrow -\infty$. Therefore, for each $\nu_{i}$, it must satisfied:
+	\begin{equation}
+		\nu_{i} \geq -2
+		\label{c_3}
+	\end{equation}
+	\item $r_{i} \geq 1$: Under this condition, the  term $\phi(r_{i}) - \nu_{i} r_{i}$ becomes:
+	\begin{equation*}
+		\phi(r_{i}) - \nu_{i} r_{i} = (2 - \nu_{i})r_{i} - 1
+	\end{equation*}
+	By inspecting this equation, we can find out that if $\nu_{i} \leq 2$, $\phi(r_{i}) - \nu_{i} r_{i}$ reach the minimum at point $r_{i} = 1$. By contrast, if $\nu_{i} > 2$, $\phi(r_{i}) - \nu_{i} r_{i}$ goes to $-\infty$ along with $r_{i} \rightarrow \infty$. Therefore, for each $\nu_{i}$, it also need to satisfied:
+	\begin{equation}
+		\nu_{i} \leq 2
+		\label{c_4}
+	\end{equation}
+	\item $-1 \leq r_{i} \leq 1$: Under this condition, the term $\phi(r_{i}) - \nu_{i} r_{i}$ becomes:
+	\begin{equation}
+		\phi(r_{i}) - \nu_{i} r_{i} = r_{i}^{2} - \nu_{i} r_{i}
+	\end{equation}
+	We first notice that if we do not consider the range of $r_{i}$, $r_{i}^{2} - \nu_{i} r_{i}$ will reach the minimum $-\frac{\nu_{i}^{2}}{4}$ at the point $r_{i} = \frac{\nu_{i}}{2}$. Indeed, from constrain \ref{c_3} and \ref{c_4}, we have $-2 \leq \nu_{i} \leq 2$. Therefore, 
+	\begin{equation*}
+		-1 \leq \frac{\nu_{i}}{2} \leq 1
+	\end{equation*}
+	which located inside out assumption range of $r_{i}$. Hence, $\phi(r_{i}) - \nu_{i} r_{i}$ reach the minimum $-\frac{\nu_{i}^{2}}{4}$ at the point $r_{i} = \frac{\nu_{i}}{2}$.
+\end{enumerate}
+We can construct the minimum of $\phi(r_{i}) - \nu_{i} r_{i}$ over the entire range of $r_{i}$ by combining the above three cases:
+\begin{equation*}
+	\displaystyle\inf_{r_{i}}\{ \phi(r_{i}) - \nu_{i} r_{i} \} = \displaystyle\min \{ \nu_{i} + 1, 1 - \nu_{i}, -\frac{\nu_{i}^{2}}{4} \}
+\end{equation*}
+with the constrain $-2 \leq \nu_{i} \leq 2$ and $\nu^{T} \mathcal{A} = 0$. Indeed, we can plot the graph for these three terms as:
+\begin{center}
+	\begin{tikzpicture}
+		\draw [->] (-3, 0) -- (3, 0) node[above]{$\nu_{i}$};
+		\draw [->] (0, -3) -- (0, 3);
+		\draw[scale=0.5,domain=-2:2,smooth,variable=\x,blue] plot ({\x},{\x + 1});
+		\draw[scale=0.5,domain=-2:2,smooth,variable=\x,green] plot ({\x},{1 - \x});
+		\draw[scale=0.5,domain=-2:2,smooth,variable=\x,red] plot ({\x},{-\frac{\x * \x}{4}});
+	\end{tikzpicture}
+\end{center}
 \end{document}
