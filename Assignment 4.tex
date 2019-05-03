@@ -357,4 +357,121 @@ Hence, the Dual Problem is:
 		& \nu^{T} \mathcal{A} = 0
 	\end{aligned}
 \end{equation*}
+
+\section*{Q4}
+\subsection*{(a)}
+Since $\mathbf{p}(x)$ is the density of variable $x$, then, for $\mu_{1} \leq x \leq \mu_{2}$, we have:
+\begin{equation*}
+	\mathcal{P}(\mu_{1} \leq x \leq \mu_{2}) = \int_{\mu_{1}}^{\mu_{2}}\mathbf{p}(x)\mathrm{d}x
+\end{equation*}
+If we substitute variable $x$ with a new variable $t$ and satisfied: $x = at - b$, the above equation is equivalent to:
+\begin{equation}
+	\begin{aligned}
+		\int_{\mu_{1}}^{\mu_{2}}p(x)\mathrm{d}x &= \int_{\frac{\mu_{1} + b}{a}}^{\frac{\mu_{2} + b}{a}}\mathbf{p}(at - b)\mathrm{d}(at-b) \\
+		&= \int_{\frac{\mu_{1} + b}{a}}^{\frac{\mu_{2} + b}{a}} a \mathbf{p}(at - b) \mathrm{d}t
+	\end{aligned}
+	\label{4a_1}
+\end{equation}
+Recalling that $y = \frac{x + b}{a}$, therefore, the following equation always holds:
+\begin{equation}
+	\mathcal{P}(\mu_{1} \leq x \leq \mu_{2}) = \mathcal{P}(\frac{\mu_{1} + b}{a} \leq y \leq \frac{\mu_{2}+ b}{a})
+	\label{4a_2}
+\end{equation}
+Combining Equation \ref{4a_1} and \ref{4a_2}, we have:
+\begin{equation*}
+	\begin{aligned}
+		\mathcal{P}(\frac{\mu_{1} + b}{a} \leq y \leq \frac{\mu_{2}+ b}{a}) &= \mathcal{P}(\mu_{1} \leq x \leq \mu_{2}) \\
+		&= \int_{\mu_{1}}^{\mu_{2}}\mathbf{p}(x)\mathrm{d}x \\
+		&= \int_{\frac{\mu_{1} + b}{a}}^{\frac{\mu_{2} + b}{a}} a \mathbf{p}(at - b) \mathrm{d}t
+	\end{aligned}
+\end{equation*}
+This equation indicated that the density of $y$ is $\mathbf{p}_{y} = a \mathbf{p}(ay - b)$. Therefore, we can write down the log-likelihood for $\{ y_{1}, y_{2}, \cdots, y_{n} \}$ as:
+\begin{equation*}
+	\begin{aligned}
+		\mathcal{L} &= \log \displaystyle\prod_{i = 2}^{n}{\mathbf{p}_{y_{i}}} \\
+		&= \log \displaystyle\prod_{i = 1}^{n}{a \mathbf{p}(ay_{i} - b)} \\
+		&= \displaystyle\sum_{i = 1}^{n}\log{a \mathbf{p}(ay_{i} - b)} \\
+		&= n \log{a} + \displaystyle\sum_{i = 1}^{n} \log{\mathbf{p}(a y_{i} - b)}
+	\end{aligned}
+\end{equation*}
+As a result, the maximize-likelihood optimized problem can be expressed as:
+\begin{equation}
+	\begin{aligned}
+		\displaystyle\max_{a, b} \quad & n \log{a} + \displaystyle\sum_{i = 1}^{n} \log{\mathbf{p}(a y_{i} - b)} \\
+		\textsl{s.t.} \quad & a > 0
+	\end{aligned}
+	\label{5_a}
+\end{equation}
+Since $\mathbf{p}$ is log-concave and $ay_{i} - b$ is linear function, the term $\displaystyle\sum_{i = 1}^{n} \log{\mathbf{p}(a y_{i} - b)}$ is concave. Furthermore, as $n \log{a}$ is also concave, the whole objective function $n \log{a} + \displaystyle\sum_{i = 1}^{n} \log{\mathbf{p}(a y_{i} - b)}$ is concave. Additionally, the constrain $a > 0$ define a convex set, hence, this optimized problem is a convex optimize problem.
+
+\subsection*{(b)}
+By substituting $\mathbf{p}(x) = e^{-2 |x|}$ to Problem \ref{5_a}, we have:
+\begin{equation*}
+	\begin{aligned}
+		n \log{a} + \displaystyle\sum_{i = 1}^{n} \log{\mathbf{p}(a y_{i} - b)} &= n \log{a} + \displaystyle\sum_{i = 1}^{n} \log{e^{-2|ay_{i} - b|}} \\
+		&= n \log{a} - 2 \displaystyle\sum_{i = 1}^{n}|ay_{i} - b|
+	\end{aligned}
+\end{equation*}
+Hence, the original problem becomes:
+\begin{equation*}
+	\begin{aligned}
+		\displaystyle\min_{a, b} \quad & 2 \displaystyle\sum_{i = 1}^{n}|ay_{i} - b| - n \log{a} \\
+		\textsl{s.t.} \quad & a > 0
+	\end{aligned}
+\end{equation*}
+Since the objective function is convex, we can first fix $a$ and minimize the objective function over $b$. Therefore, we can solve the original problem by first solving the following optimal problem:
+\begin{equation*}
+	\begin{aligned}
+		\displaystyle\min_{b} \quad & 2 \displaystyle\sum_{i = 1}^{n}|ay_{i} - b| - n \log{a} \\
+	\end{aligned}
+\end{equation*}
+Which is equivalent to the problem:
+\begin{equation*}
+	\begin{aligned}
+		\displaystyle\min_{b} \quad & \displaystyle\sum_{i = 1}^{n}|ay_{i} - b| \\
+	\end{aligned}
+\end{equation*}
+Furthermore, since $|ay_{i} - b| = |b - ay_{i}|$, we can further reformat the problem as:
+\begin{equation*}
+	\displaystyle\min_{b} \quad \| b \mathbf{1} - a \mathbf{y} \|
+\end{equation*}
+where $\mathbf{y} = \begin{bmatrix}
+y_{1} & y_{2} & \cdots & y_{n}
+\end{bmatrix}^{T}$. This optimize problem is  the same as Question 2(a). Therefore, we can directly use the result of Question 2(a): The optimal point is
+\begin{equation*}
+	b^{*} = a y^{*}_{\lceil \frac{n}{2} \rceil}
+\end{equation*}
+Where $y^{*}_{1}, y^{*}_{2}, \cdots, y^{*}_{n}$ is a reorder sequence of $y_{1}, y_{2}, \cdots, y_{n}$ which satisfied, for any $i < j$:
+\begin{equation*}
+	y^{*}_{i} \leq y^{*}_{j}
+\end{equation*}
+After we have find out the optimal value of $b$, we can solve the original problem by solving:
+\begin{equation*}
+	\begin{aligned}
+		\displaystyle\min_{a} \quad & 2 \displaystyle\sum_{i = 1}^{n}|a(y_{i} - y^{*}_{\lceil \frac{n}{2} \rceil})| - n \log{a} \\
+		\textsl{s.t.} \quad & a > 0
+	\end{aligned}
+\end{equation*}
+Since $a > 0$ is equivalent to the domain of $\log{a}$, the problem is equivalent to:
+\begin{equation*}
+	\displaystyle\min_{a} \quad 2a \displaystyle\sum_{i = 1}^{n}|y_{i} - y^{*}_{\lceil \frac{n}{2} \rceil}| - n \log{a}
+\end{equation*}
+We can denote $c = \displaystyle\sum_{i = 1}^{n}|y_{i} - y^{*}_{\lceil \frac{n}{2} \rceil}|$. It is obvious that $c \geq 0$, therefore, the function $f_{0}(a) = 2ca - n \log{a}$ is convex as $\nabla_{a}^{2} f_{0}(a) \geq 0$. As a result, the optimal point $a^{*}$ should satisfied the first-order condition that:
+\begin{equation*}
+	\nabla_{a}f_{0}(a*) = 0
+\end{equation*}
+The solution of this equation is:
+\begin{equation*}
+	\begin{aligned}
+		a^{*} &= \frac{n}{2c} \\
+		&= \frac{n}{2 \displaystyle\sum_{i = 1}^{n}|y_{i} - y^{*}_{\lceil \frac{n}{2} \rceil}|}
+	\end{aligned}
+\end{equation*}
+Hence, in conclusion, the optimal point is:
+\begin{equation*}
+	\begin{cases}
+		a^{*} = \frac{n}{2 \displaystyle\sum_{i = 1}^{n}|y_{i} - y^{*}_{\lceil \frac{n}{2} \rceil}|} \\
+		b^{*} = a^{*} y^{*}_{\lceil \frac{n}{2} \rceil}
+	\end{cases}
+\end{equation*}
 \end{document}
